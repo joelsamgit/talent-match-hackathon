@@ -27,7 +27,7 @@ from models import (
     MissingSkill,
     SkillMatchingOutput,
 )
-from scoring import calculate_match_score, fallback_match
+from scoring import calculate_match_score, fallback_match, sort_missing_skills
 
 load_dotenv()
 
@@ -233,6 +233,9 @@ def match_skills(
                 explanation=item.get("explanation", "Skill gap identified."),
             )
         )
+
+    # Sort missing skills by importance (high > medium > low)
+    missing_skills = sort_missing_skills(missing_skills)
 
     # Compute normalized Match Score using mathematical formula
     score = calculate_match_score(matched_skills, missing_skills)

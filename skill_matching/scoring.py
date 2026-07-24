@@ -18,6 +18,20 @@ from __future__ import annotations
 from typing import List, Dict, Any, Tuple
 from models import MatchConfidence, ImportanceLevel, MatchedSkill, MissingSkill
 
+IMPORTANCE_ORDER = {"high": 0, "medium": 1, "low": 2}
+
+
+def sort_missing_skills(missing_skills: List[Dict[str, Any] | MissingSkill]) -> List[Any]:
+    """Sort missing skills by importance level (high > medium > low)."""
+    def get_key(item):
+        if isinstance(item, MissingSkill):
+            val = item.importance.value if isinstance(item.importance, ImportanceLevel) else item.importance
+        else:
+            val = item.get("importance", "medium")
+        return IMPORTANCE_ORDER.get(str(val).lower(), 1)
+    return sorted(missing_skills, key=get_key)
+
+
 
 def calculate_match_score(
     matched_skills: List[Dict[str, Any] | MatchedSkill],
