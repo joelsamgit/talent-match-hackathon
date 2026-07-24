@@ -1,0 +1,21 @@
+# Python virtual environment
+.venv/
+env/
+venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Test caches
+.pytest_cache/
+
+# Environment variables / Secrets (NEVER push API keys)
+.env
+
+# Sample Data / Resumes (Do not push real candidate resumes to GitHub!)
+data/
+Resumes/
+*.pdf
+*.docx
