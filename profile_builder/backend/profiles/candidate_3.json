@@ -1,0 +1,34 @@
+{
+  "name": "Kevin Thomas",
+  "email": "kevin.thomas@example.com",
+  "education": "B.E Information Technology",
+  "skills": [
+    {
+      "skill_name": "OS",
+      "category_code": "OS",
+      "evidence": "Coursework on Linux administration",
+      "confidence": 55
+    },
+    {
+      "skill_name": "SQL",
+      "category_code": "SQL",
+      "evidence": "Basic queries in DBMS course",
+      "confidence": 25
+    },
+    {
+      "skill_name": "Communication",
+      "category_code": "COMM",
+      "evidence": "Led college tech fest team",
+      "confidence": 55
+    }
+  ],
+  "hackathons": [],
+  "internships": [],
+  "certifications": [
+    "ITIL Foundation"
+  ],
+  "preferred_roles": [
+    "Application Support Analyst"
+  ],
+  "cv_file": "kevin_thomas_resume.pdf"
+}

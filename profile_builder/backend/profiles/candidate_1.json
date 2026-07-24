@@ -1,0 +1,42 @@
+{
+  "name": "Arjun Mehta",
+  "email": "arjun.mehta@example.com",
+  "education": "B.Tech Computer Science",
+  "skills": [
+    {
+      "skill_name": "Java",
+      "category_code": "COD",
+      "evidence": "3 backend projects using Java/Spring",
+      "confidence": 85
+    },
+    {
+      "skill_name": "System Design",
+      "category_code": "SYSD",
+      "evidence": "Designed a URL shortener at scale",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Networking",
+      "category_code": "NETW",
+      "evidence": "Coursework + CCNA basics",
+      "confidence": 55
+    },
+    {
+      "skill_name": "SQL",
+      "category_code": "SQL",
+      "evidence": "Used PostgreSQL in capstone",
+      "confidence": 55
+    }
+  ],
+  "hackathons": [
+    "Smart India Hackathon 2024"
+  ],
+  "internships": [
+    "Backend intern, fintech startup"
+  ],
+  "certifications": [],
+  "preferred_roles": [
+    "Software Engineer"
+  ],
+  "cv_file": "arjun_mehta_resume.pdf"
+}

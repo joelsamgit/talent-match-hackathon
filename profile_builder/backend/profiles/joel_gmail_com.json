@@ -1,0 +1,26 @@
+{
+  "name": "joel sam",
+  "email": "joel@gmail.com",
+  "education": "b.tech",
+  "skills": [
+    {
+      "skill_name": "python",
+      "category_code": "DSA",
+      "evidence": "leetcode 100+ solved",
+      "confidence": 55
+    }
+  ],
+  "hackathons": [
+    "smart india hackathon"
+  ],
+  "internships": [
+    "zidio development"
+  ],
+  "certifications": [
+    "google"
+  ],
+  "preferred_roles": [
+    "software engineer"
+  ],
+  "cv_file": "resume.pdf"
+}

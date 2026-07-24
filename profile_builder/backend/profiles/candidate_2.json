@@ -1,0 +1,43 @@
+{
+  "name": "Priya Nair",
+  "email": "priya.nair@example.com",
+  "education": "B.Sc Statistics",
+  "skills": [
+    {
+      "skill_name": "Python",
+      "category_code": "COD",
+      "evidence": "Used in all coursework projects",
+      "confidence": 85
+    },
+    {
+      "skill_name": "SQL",
+      "category_code": "SQL",
+      "evidence": "Built dashboards on PostgreSQL",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Machine Learning",
+      "category_code": "AI",
+      "evidence": "Kaggle competitions, 2 projects",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Cloud",
+      "category_code": "CLOUD",
+      "evidence": "AWS S3/EC2 basics",
+      "confidence": 25
+    }
+  ],
+  "hackathons": [],
+  "internships": [
+    "Data analyst intern, retail analytics"
+  ],
+  "certifications": [
+    "Google Data Analytics Certificate"
+  ],
+  "preferred_roles": [
+    "Data Scientist",
+    "Data Analyst"
+  ],
+  "cv_file": "priya_nair_resume.pdf"
+}

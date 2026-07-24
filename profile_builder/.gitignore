@@ -1,0 +1,15 @@
+# Python virtual environment & cache
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Node dependencies & build artifacts
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# OS metadata & logs
+.DS_Store
+*.log
