@@ -1,0 +1,39 @@
+{
+  "source_type": "jd",
+  "source_file": "sample_jd.txt",
+  "company": "Google LLC",
+  "role": "Software Engineer",
+  "raw_text_length": 612,
+  "skills": [
+    {
+      "skill_name": "Data Structures & Algorithms",
+      "category_code": "DSA",
+      "evidence": "Strong grasp of data structures and algorithms",
+      "confidence": "high"
+    },
+    {
+      "skill_name": "Operating Systems",
+      "category_code": "OS",
+      "evidence": "processes, threads, virtual memory",
+      "confidence": "high"
+    },
+    {
+      "skill_name": "Object-Oriented Design",
+      "category_code": "OOD",
+      "evidence": "Experience with object-oriented design and common design patterns",
+      "confidence": "high"
+    },
+    {
+      "skill_name": "System Design at Scale",
+      "category_code": "SYSD",
+      "evidence": "Comfort reasoning about system design at scale",
+      "confidence": "high"
+    },
+    {
+      "skill_name": "Communication",
+      "category_code": "COMM",
+      "evidence": "Clear written and verbal communication",
+      "confidence": "high"
+    }
+  ]
+}

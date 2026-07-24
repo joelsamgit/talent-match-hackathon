@@ -1,0 +1,15 @@
+Google LLC — Software Engineer (SWE)
+Role Overview
+Design, develop, test, and maintain large-scale distributed systems.
+
+Key Responsibilities
+• Design and implement backend services and APIs
+• Write clean, well-tested, maintainable code and participate in code review
+• Take part in system design discussions
+
+What We're Looking For
+• Strong grasp of data structures and algorithms
+• Working knowledge of operating systems fundamentals (processes, threads, virtual memory)
+• Experience with object-oriented design and common design patterns
+• Comfort reasoning about system design at scale
+• Clear written and verbal communication
