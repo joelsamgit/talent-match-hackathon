@@ -1,0 +1,51 @@
+# =============================================================================
+# Skill Matching — .gitignore
+# Role 5 of RADIX Talent Match (Python + FastAPI)
+# =============================================================================
+
+# SECRETS — CRITICAL: Never commit API keys
+.env
+*.env
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+.Python
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env_folder/
+ENV/
+
+# IDE and OS files
+.vscode/
+.idea/
+*.suo
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+desktop.ini
+.gemini/
+
+# Logs and temp files
+*.log
+logs/
+temp/
+tmp/
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+htmlcov/
