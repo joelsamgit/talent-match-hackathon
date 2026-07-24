@@ -1,0 +1,14 @@
+{
+  "Google": {
+    "DSA": 8, "COD": 8, "OOD": 7, "APTI": 9, "COMM": 7, "AI": 6, 
+    "CLOUD": 7, "SQL": 8, "SWE": 8, "SYSD": 8, "NETW": 5, "OS": 6
+  },
+  "Microsoft": {
+    "DSA": 7, "COD": 8, "OOD": 8, "APTI": 8, "COMM": 7, "AI": 5, 
+    "CLOUD": 8, "SQL": 7, "SWE": 8, "SYSD": 7, "NETW": 6, "OS": 7
+  },
+  "Oracle Financial Services Software": {
+    "DSA": 6, "COD": 7, "OOD": 7, "APTI": 7, "COMM": 6, "AI": 3, 
+    "CLOUD": 5, "SQL": 9, "SWE": 7, "SYSD": 6, "NETW": 7, "OS": 6
+  }
+}
