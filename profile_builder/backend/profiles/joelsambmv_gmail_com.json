@@ -1,0 +1,83 @@
+{
+  "name": "Joel Sam",
+  "email": "joelsambmv@gmail.com",
+  "education": "B. Tech Computer Science and Engineering (AIML), Karunya Institute of Technology and Science",
+  "skills": [
+    {
+      "skill_name": "Python programming",
+      "category_code": "COD",
+      "evidence": "Experienced in developing AI-based applications using Python",
+      "confidence": 85
+    },
+    {
+      "skill_name": "JavaScript programming",
+      "category_code": "COD",
+      "evidence": "Developed a Pet Adoption System using Html, CSS and JavaScript",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Machine learning modeling",
+      "category_code": "AI",
+      "evidence": "Developed a Regression Model to predict salary of Jobs",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Computer vision",
+      "category_code": "AI",
+      "evidence": "Developed a plant disease detection system for borage leaves using machine learning and image processing techniques",
+      "confidence": 85
+    },
+    {
+      "skill_name": "MERN Stack development",
+      "category_code": "COD",
+      "evidence": "Developed a fully-functional video calling platform named IntelMeet with live transcription using React, TypeScript, AI intelligence and REST API",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Web development",
+      "category_code": "COD",
+      "evidence": "Developed a Pet Adoption System using Html, CSS and JavaScript",
+      "confidence": 85
+    },
+    {
+      "skill_name": "SQL databases",
+      "category_code": "SQL",
+      "evidence": "Programming Languages: Python, JavaScript, SQL",
+      "confidence": 55
+    },
+    {
+      "skill_name": "NoSQL databases",
+      "category_code": "SQL",
+      "evidence": "Databases: MongoDB, MySQL",
+      "confidence": 55
+    },
+    {
+      "skill_name": "Git version control",
+      "category_code": "SWE",
+      "evidence": "Others: OOPS, DBMS, Git, LangChain, Hugging Face",
+      "confidence": 55
+    },
+    {
+      "skill_name": "LangChain",
+      "category_code": "AI",
+      "evidence": "Developed a React and FastAPI full-stack application utilizing LangChain",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Hugging Face",
+      "category_code": "AI",
+      "evidence": "Others: OOPS, DBMS, Git, LangChain, Hugging Face",
+      "confidence": 55
+    }
+  ],
+  "hackathons": [],
+  "internships": [
+    "Full Stack Developer Intern at Octanet Solution Pvt Ltd",
+    "Machine Learning Intern, Skillforge",
+    "Generative AI Intern, Young Minds Solution Pvt Ltd",
+    "Web Development Intern, Zidio Development"
+  ],
+  "certifications": [],
+  "preferred_roles": [],
+  "cv_file": "Joel Sam Resume.pdf"
+}

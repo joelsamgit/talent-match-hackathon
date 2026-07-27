@@ -32,8 +32,8 @@ def calculate_talent_check(company_name, candidate_profile, company_benchmarks):
         
         skillset_gap.append({
             "category_code": req_category,
-            "required_level": req_level,
-            "candidate_level": float(cand_level),
+            "required_level": int(req_level),
+            "candidate_level": int(round(cand_level)),
             "gap": has_gap
         })
 

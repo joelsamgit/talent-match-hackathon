@@ -1,0 +1,110 @@
+{
+  "name": "Ananya Rao",
+  "email": "ananya.rao@example.com",
+  "education": "B.Tech in Computer Science, IIT Bombay",
+  "skills": [
+    {
+      "skill_name": "Python",
+      "category_code": "COD",
+      "evidence": "Languages: Python",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Java",
+      "category_code": "COD",
+      "evidence": "Languages: Java",
+      "confidence": 85
+    },
+    {
+      "skill_name": "C++",
+      "category_code": "COD",
+      "evidence": "Languages: C++",
+      "confidence": 85
+    },
+    {
+      "skill_name": "SQL",
+      "category_code": "SQL",
+      "evidence": "Languages: SQL",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Data structures and algorithms",
+      "category_code": "DSA",
+      "evidence": "Data Structures & Algorithms",
+      "confidence": 85
+    },
+    {
+      "skill_name": "System design",
+      "category_code": "SYSD",
+      "evidence": "System Design",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Operating systems",
+      "category_code": "OS",
+      "evidence": "Operating Systems",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Networking fundamentals",
+      "category_code": "NETW",
+      "evidence": "Networking",
+      "confidence": 85
+    },
+    {
+      "skill_name": "PyTorch",
+      "category_code": "AI",
+      "evidence": "PyTorch",
+      "confidence": 85
+    },
+    {
+      "skill_name": "TensorFlow",
+      "category_code": "AI",
+      "evidence": "TensorFlow",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Scikit-Learn",
+      "category_code": "AI",
+      "evidence": "Scikit-Learn",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Distributed systems",
+      "category_code": "SYSD",
+      "evidence": "Built distributed cache",
+      "confidence": 85
+    },
+    {
+      "skill_name": "AWS",
+      "category_code": "CLOUD",
+      "evidence": "microservices architecture on AWS",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Docker",
+      "category_code": "CLOUD",
+      "evidence": "with Docker and Kubernetes",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Kubernetes",
+      "category_code": "CLOUD",
+      "evidence": "with Docker and Kubernetes",
+      "confidence": 85
+    }
+  ],
+  "hackathons": [
+    "Smart India Hackathon 2024"
+  ],
+  "internships": [
+    "Backend Software Engineer Intern"
+  ],
+  "certifications": [
+    "AWS Certified Solutions Architect"
+  ],
+  "preferred_roles": [
+    "Software Engineer"
+  ],
+  "cv_file": "sample_resume.docx"
+}

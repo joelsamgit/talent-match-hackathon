@@ -38,53 +38,24 @@ def _validate_extension(filename: str) -> str | None:
     return None
 
 
-@router.post("/parse-resume", response_model=ParseResult)
-async def parse_resume(file: UploadFile = File(...)):
+def parse_resume_bytes(file_bytes: bytes, filename: str = "resume.pdf") -> ParseResult:
     """
-    Parse a resume file and return structured skills + biographical fields.
-
-    Accepts PDF or DOCX uploads. Runs the full 7-stage pipeline:
-    text extraction → section mapping → skill extraction → field extraction
-    → validation → merge.
+    Core Python callable function to parse resume bytes and return a ParseResult.
     """
-    filename = file.filename or "unknown"
     warnings: list[str] = []
-
-    # -----------------------------------------------------------------------
-    # Pre-checks
-    # -----------------------------------------------------------------------
-    ext = _validate_extension(filename)
-    if ext is None:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Unsupported file type: '{filename}'. Only .pdf and .docx are accepted.",
-        )
-
-    # Read file bytes
-    try:
-        file_bytes = await file.read()
-    except Exception as exc:
-        raise HTTPException(status_code=400, detail=f"Could not read uploaded file: {exc}")
-
     if not file_bytes:
-        raise HTTPException(status_code=400, detail="Uploaded file is empty (0 bytes).")
-
-    if len(file_bytes) > _MAX_FILE_SIZE:
-        raise HTTPException(
-            status_code=413,
-            detail=f"File too large ({len(file_bytes)} bytes). Maximum is {_MAX_FILE_SIZE} bytes.",
+        return ParseResult(
+            skills=ExtractedSkillList(source_file=filename, skills=[]),
+            fields=StructuredFields(),
+            extraction_method="text",
+            warnings=["Uploaded file is empty (0 bytes)."],
         )
 
     t0 = time.time()
-
-    # -----------------------------------------------------------------------
-    # Stage 1 — Text extraction
-    # -----------------------------------------------------------------------
     extraction = extract_text(file_bytes, filename)
     warnings.extend(extraction.warnings)
 
     if not extraction.full_text.strip():
-        # Return empty-but-valid result instead of crashing
         warnings.append("Resume text is empty after extraction. Returning empty result.")
         return ParseResult(
             skills=ExtractedSkillList(source_file=filename, skills=[]),
@@ -93,22 +64,7 @@ async def parse_resume(file: UploadFile = File(...)):
             warnings=warnings,
         )
 
-    logger.info(
-        "Extraction done: %d lines, %d chars, method=%s",
-        len(extraction.lines),
-        len(extraction.full_text),
-        extraction.extraction_method,
-    )
-
-    # -----------------------------------------------------------------------
-    # Stage 2 — Heuristic section mapping
-    # -----------------------------------------------------------------------
     sections = map_sections(extraction.lines)
-    logger.info("Section mapping: %d sections detected", len(sections))
-
-    # -----------------------------------------------------------------------
-    # Stage 3 — Skill extraction (LLM)
-    # -----------------------------------------------------------------------
     is_ocr = extraction.extraction_method in ("ocr", "mixed")
     skills, skill_warnings = extract_skills(
         full_text=extraction.full_text,
@@ -117,18 +73,12 @@ async def parse_resume(file: UploadFile = File(...)):
     )
     warnings.extend(skill_warnings)
 
-    # -----------------------------------------------------------------------
-    # Stage 4 — Structured field extraction (LLM)
-    # -----------------------------------------------------------------------
     fields, field_warnings = extract_structured_fields(extraction.full_text)
     warnings.extend(field_warnings)
 
-    # -----------------------------------------------------------------------
-    # Stage 7 — Validation & Merge
-    # -----------------------------------------------------------------------
     coverage_warnings = verify_skill_coverage(sections, skills)
     warnings.extend(coverage_warnings)
-    
+
     elapsed = time.time() - t0
     logger.info("Pipeline complete in %.2fs: %d skills extracted", elapsed, len(skills))
 
@@ -142,3 +92,43 @@ async def parse_resume(file: UploadFile = File(...)):
         extraction_method=extraction.extraction_method,
         warnings=warnings,
     )
+
+
+def parse_resume_file(file_path: str) -> dict:
+    """
+    Standalone Python helper function that takes a file path and returns the contract-compliant dictionary.
+    """
+    import os
+    filename = os.path.basename(file_path)
+    with open(file_path, "rb") as f:
+        content = f.read()
+    parse_result = parse_resume_bytes(content, filename=filename)
+    return parse_result.to_contract_dict()
+
+
+@router.post("/parse-resume", response_model=ParseResult)
+async def parse_resume(file: UploadFile = File(...)):
+    """
+    Parse a resume file and return structured skills + biographical fields.
+    """
+    filename = file.filename or "unknown"
+    ext = _validate_extension(filename)
+    if ext is None:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unsupported file type: '{filename}'. Only .pdf and .docx are accepted.",
+        )
+
+    try:
+        file_bytes = await file.read()
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=f"Could not read uploaded file: {exc}")
+
+    if len(file_bytes) > _MAX_FILE_SIZE:
+        raise HTTPException(
+            status_code=413,
+            detail=f"File too large ({len(file_bytes)} bytes). Maximum is {_MAX_FILE_SIZE} bytes.",
+        )
+
+    return parse_resume_bytes(file_bytes, filename=filename)
+

@@ -16,8 +16,7 @@ from unittest.mock import patch
 
 from tests.conftest import make_mock_groq_client, MOCK_GROQ_JSON
 
-VALID_CATEGORY_CODES = {"DSA", "COD", "OOD", "SYSD", "OS", "NETW", "DB", "SWE", "DATA", "APTI", "COMM", "MGMT"}
-VALID_CONFIDENCE_LEVELS = {"high", "medium", "low"}
+VALID_CATEGORY_CODES = {"DSA", "COD", "OOD", "APTI", "COMM", "AI", "CLOUD", "SQL", "SWE", "SYSD", "NETW", "OS", "OTHER"}
 
 
 # ---------------------------------------------------------------------------

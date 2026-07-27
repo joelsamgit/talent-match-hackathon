@@ -18,15 +18,16 @@ class CategoryCode(str, Enum):
     DSA   = "DSA"   # Data Structures & Algorithms
     COD   = "COD"   # Coding Proficiency
     OOD   = "OOD"   # Object-Oriented Design & Patterns
-    SYSD  = "SYSD"  # System Design & Architecture
-    OS    = "OS"    # Operating Systems & Low-level Concepts
-    NETW  = "NETW"  # Computer Networking
-    DB    = "DB"    # Databases & SQL
-    SWE   = "SWE"   # Software Engineering Practices
-    DATA  = "DATA"  # Data Science, ML & Analytics
     APTI  = "APTI"  # Aptitude, Logic & Problem Solving
     COMM  = "COMM"  # Communication & Collaboration
-    MGMT  = "MGMT"  # Project & Product Management
+    AI    = "AI"    # Artificial Intelligence, ML & Data Science
+    CLOUD = "CLOUD" # Cloud Platforms & Infrastructure
+    SQL   = "SQL"   # Databases & SQL
+    SWE   = "SWE"   # Software Engineering Practices
+    SYSD  = "SYSD"  # System Design & Architecture
+    NETW  = "NETW"  # Computer Networking
+    OS    = "OS"    # Operating Systems & Low-level Concepts
+    OTHER = "OTHER" # Other real technical / professional skills
 
 
 class MatchConfidence(str, Enum):

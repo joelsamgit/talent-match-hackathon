@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 # Provider configuration
 # ---------------------------------------------------------------------------
-GROQ_MODEL = "llama-3.3-70b-versatile"
+GROQ_MODEL = "llama-3.1-8b-instant"
 GEMINI_MODEL = "gemini-2.0-flash"
 
 # Rough word budget before we chunk (3000 words ≈ ~4000 tokens)
@@ -339,6 +339,7 @@ def _call_llm_with_validation(
 # ---------------------------------------------------------------------------
 # Stage 3 — Skill extraction
 # ---------------------------------------------------------------------------
+from schema import Skill, StructuredFields, ProjectEntry, normalize_confidence
 
 def _parse_skills_response(raw_json: str) -> list[Skill]:
     """Parse and validate the raw JSON from the skill-extraction LLM call."""
@@ -349,7 +350,9 @@ def _parse_skills_response(raw_json: str) -> list[Skill]:
 
     validated: list[Skill] = []
     for item in skills_raw:
-        validated.append(Skill(**item))
+        if isinstance(item, dict):
+            item["confidence"] = normalize_confidence(item.get("confidence"))
+            validated.append(Skill(**item))
 
     return validated
 

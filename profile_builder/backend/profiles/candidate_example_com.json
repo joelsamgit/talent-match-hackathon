@@ -1,0 +1,119 @@
+{
+  "name": "Karthik Subramaniam",
+  "email": "candidate@example.com",
+  "education": "B.Tech, Computer Science and Engineering, Class of 2026 \u2014 CGPA 8.2 / 10",
+  "skills": [
+    {
+      "skill_name": "SQL",
+      "category_code": "SQL",
+      "evidence": "Technical Skills, SQL",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Python",
+      "category_code": "COD",
+      "evidence": "Technical Skills, Python (pandas, scikit-learn)",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Power BI",
+      "category_code": "SQL",
+      "evidence": "Technical Skills, Power BI",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Statistics",
+      "category_code": "APTI",
+      "evidence": "Technical Skills, Statistics",
+      "confidence": 85
+    },
+    {
+      "skill_name": "A/B testing",
+      "category_code": "APTI",
+      "evidence": "Technical Skills, A/B testing basics",
+      "confidence": 55
+    },
+    {
+      "skill_name": "Excel",
+      "category_code": "OTHER",
+      "evidence": "Technical Skills, Excel",
+      "confidence": 25
+    },
+    {
+      "skill_name": "Java",
+      "category_code": "COD",
+      "evidence": "Technical Skills, basic Java",
+      "confidence": 25
+    },
+    {
+      "skill_name": "Machine learning modeling",
+      "category_code": "AI",
+      "evidence": "Projects, churn-prediction pipeline, logistic regression model",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Data visualization",
+      "category_code": "COMM",
+      "evidence": "Projects, college event-management system, dashboard",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Anomaly detection",
+      "category_code": "SQL",
+      "evidence": "Projects, college event-management system, anomaly detection",
+      "confidence": 85
+    },
+    {
+      "skill_name": "A/B testing simulation",
+      "category_code": "APTI",
+      "evidence": "Projects, A/B test simulation",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Stakeholder communication",
+      "category_code": "COMM",
+      "evidence": "Projects, presenting results to a non-technical audience",
+      "confidence": 55
+    },
+    {
+      "skill_name": "Data engineering",
+      "category_code": "CLOUD",
+      "evidence": "Projects, end-to-end churn-prediction pipeline",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Database design",
+      "category_code": "SQL",
+      "evidence": "Projects, normalized schema",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Data analytics",
+      "category_code": "SQL",
+      "evidence": "Hackathons / Internships, Data Analytics intern",
+      "confidence": 85
+    },
+    {
+      "skill_name": "Data visualization competition",
+      "category_code": "COMM",
+      "evidence": "Hackathons / Internships, Runner-up, inter-college data visualization competition",
+      "confidence": 55
+    },
+    {
+      "skill_name": "Google Data Analytics Certificate",
+      "category_code": "OTHER",
+      "evidence": "Certifications, Google Data Analytics Certificate",
+      "confidence": 85
+    }
+  ],
+  "hackathons": [],
+  "internships": [
+    "Data Analytics intern at a fintech startup \u2014 built two recurring dashboards used by the growth team",
+    "Runner-up, inter-college data visualization competition"
+  ],
+  "certifications": [
+    "Google Data Analytics Certificate"
+  ],
+  "preferred_roles": [],
+  "cv_file": "Karthik Subramaniam.pdf"
+}

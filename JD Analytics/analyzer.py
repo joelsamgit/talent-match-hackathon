@@ -26,6 +26,7 @@ from models import (
     ConfidenceLevel,
     JDAnalyticsOutput,
     SkillObject,
+    normalize_confidence,
 )
 
 load_dotenv()
@@ -51,7 +52,7 @@ def _get_client() -> Groq:
     return _client
 
 
-MODEL = "llama-3.3-70b-versatile"
+MODEL = "llama-3.1-8b-instant"
 
 # ---------------------------------------------------------------------------
 # Prompt construction
@@ -65,19 +66,16 @@ _CATEGORY_LIST = "\n".join(
 SYSTEM_PROMPT = f"""You are an expert technical recruiter and skills analyst.
 
 Your task is to analyze a Job Description (JD) and extract all the skills, competencies,
-and requirements mentioned — then map each one to exactly one of the 12 RADIX skill categories.
+and requirements mentioned — then map each one to exactly one of the 13 RADIX skill categories.
 
-## The 12 RADIX Categories (use ONLY these codes):
+## The 13 RADIX Categories (use ONLY these codes):
 {_CATEGORY_LIST}
 
 ## Rules:
 1. Extract every distinct skill, tool, or competency mentioned in the JD.
 2. Map each to exactly ONE category code from the list above.
 3. Provide a short verbatim quote (≤ 30 words) from the JD as "evidence".
-4. Set "confidence" to:
-   - "high"   → explicitly stated requirement
-   - "medium" → strongly implied or mentioned as preferred
-   - "low"    → background expectation or inferred from context
+4. Set "confidence" to an integer from 0-100 (85 for high/explicit, 55 for medium/implied, 25 for low/inferred).
 5. Focus especially on "Key Responsibilities", "Requirements", and "What We're Looking For" sections.
 6. Extract the company name and job role from the JD text.
 7. Return ONLY valid JSON — no markdown, no prose, no code fences.
@@ -89,48 +87,12 @@ and requirements mentioned — then map each one to exactly one of the 12 RADIX 
   "skills": [
     {{
       "skill_name": "<human readable skill name>",
-      "category_code": "<one of the 12 codes>",
+      "category_code": "<one of the 13 codes>",
       "evidence": "<short verbatim quote from JD>",
-      "confidence": "<high|medium|low>"
+      "confidence": <integer 0-100>
     }}
   ]
 }}
-
-## Few-shot examples of correct skill extractions:
-
-Example 1 — from a Google Software Engineer JD:
-{{
-  "skill_name": "Data Structures & Algorithms",
-  "category_code": "DSA",
-  "evidence": "Strong grasp of data structures, algorithms, and complexity analysis",
-  "confidence": "high"
-}}
-
-Example 2 — from a Microsoft Data Analyst JD:
-{{
-  "skill_name": "SQL & Database Querying",
-  "category_code": "DB",
-  "evidence": "Write complex SQL queries to extract and manipulate data from relational databases",
-  "confidence": "high"
-}}
-
-Example 3 — from an Oracle JD:
-{{
-  "skill_name": "Communication & Stakeholder Management",
-  "category_code": "COMM",
-  "evidence": "Excellent written and verbal communication skills to liaise with clients",
-  "confidence": "high"
-}}
-"""
-
-
-def _build_user_message(jd_text: str) -> str:
-    return f"""Analyze the following Job Description and extract all skills.
-Return ONLY the JSON object described in your instructions.
-
---- JD TEXT START ---
-{jd_text}
---- JD TEXT END ---
 """
 
 
@@ -140,20 +102,24 @@ Return ONLY the JSON object described in your instructions.
 
 def analyze_jd(text: str, filename: str = "unknown.txt") -> JDAnalyticsOutput:
     """
-    Send JD text to Groq and return a validated JDAnalyticsOutput.
+    Analyze pre-extracted JD text using Groq (Llama 3.3 70B).
 
     Args:
-        text:     Plain text extracted from the JD file.
-        filename: Original filename (for source_file field).
+        text: Raw character text of the job description
+        filename: Optional filename used for metadata inference
 
     Returns:
-        Validated JDAnalyticsOutput instance.
-
-    Raises:
-        RuntimeError: On API or parsing failures.
+        Structured JDAnalyticsOutput object
     """
-    if not text or not text.strip():
-        raise ValueError("JD text is empty — cannot analyze an empty document.")
+    if not text.strip():
+        return JDAnalyticsOutput(
+            source_type="jd",
+            source_file=filename,
+            company=_infer_company(filename),
+            role=_infer_role(filename),
+            raw_text_length=0,
+            skills=[],
+        )
 
     client = _get_client()
 
@@ -168,7 +134,10 @@ def analyze_jd(text: str, filename: str = "unknown.txt") -> JDAnalyticsOutput:
             model=MODEL,
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": _build_user_message(text)},
+                {
+                    "role": "user",
+                    "content": f"Document Filename: {filename}\n\nJob Description Text:\n{text}",
+                },
             ],
             response_format={"type": "json_object"},
             temperature=0.1,   # Low temp → consistent, structured output
@@ -193,22 +162,21 @@ def analyze_jd(text: str, filename: str = "unknown.txt") -> JDAnalyticsOutput:
 
     for item in data.get("skills", []):
         code = item.get("category_code", "").upper()
+        # Map legacy DB/DATA/MGMT codes if hallucinated
+        code_map = {"DB": "SQL", "DATA": "AI", "MGMT": "OTHER"}
+        code = code_map.get(code, code)
         # Gracefully handle any hallucinated codes
         if code not in valid_codes:
             code = _fuzzy_match_code(code, valid_codes)
 
-        confidence_raw = item.get("confidence", "high").lower()
-        try:
-            confidence = ConfidenceLevel(confidence_raw)
-        except ValueError:
-            confidence = ConfidenceLevel.MEDIUM
+        confidence_val = normalize_confidence(item.get("confidence", 85))
 
         skills.append(
             SkillObject(
                 skill_name=item.get("skill_name", "Unknown Skill"),
                 category_code=CategoryCode(code),
                 evidence=item.get("evidence", ""),
-                confidence=confidence,
+                confidence=confidence_val,
             )
         )
 

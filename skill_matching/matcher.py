@@ -60,24 +60,25 @@ MODEL = "llama-3.3-70b-versatile"
 
 SYSTEM_PROMPT = """You are an expert technical talent recruiter and skills matching specialist.
 
-Your task is to evaluate a candidate's background against a Job Description (JD) and perform a deep semantic skill match across the 12 RADIX skill categories:
+Your task is to evaluate a candidate's background against a Job Description (JD) and perform a deep semantic skill match across the 13 RADIX skill categories:
 - DSA: Data Structures & Algorithms
 - COD: Coding Proficiency
 - OOD: Object-Oriented Design & Patterns
-- SYSD: System Design & Architecture
-- OS: Operating Systems & Low-level Concepts
-- NETW: Computer Networking
-- DB: Databases & SQL
-- SWE: Software Engineering Practices
-- DATA: Data Science, ML & Analytics
 - APTI: Aptitude, Logic & Problem Solving
 - COMM: Communication & Collaboration
-- MGMT: Project & Product Management
+- AI: Artificial Intelligence, ML & Data Science
+- CLOUD: Cloud Platforms & Infrastructure
+- SQL: Databases & SQL
+- SWE: Software Engineering Practices
+- SYSD: System Design & Architecture
+- NETW: Computer Networking
+- OS: Operating Systems & Low-level Concepts
+- OTHER: Other Technical / Professional Skills
 
 ## Rules for Semantic Matching:
 1. Account for phrasing variations, synonyms, and domain-equivalent experience:
-   - "PostgreSQL" or "MySQL" matches "SQL Querying / Databases" (DB)
-   - "scikit-learn", "PyTorch", or "TensorFlow" matches "Machine Learning Fundamentals" (DATA)
+   - "PostgreSQL" or "MySQL" matches "SQL" (SQL)
+   - "scikit-learn", "PyTorch", or "TensorFlow" matches "Artificial Intelligence, ML & Data Science" (AI)
    - "Built distributed cache in C++" matches "Operating Systems / System Design" (OS / SYSD)
    - "Competitive programming (300+ solved)" matches "Data Structures & Algorithms" (DSA)
 2. Every skill required in the JD MUST be classified into either:
@@ -152,18 +153,10 @@ def match_skills(
 ) -> SkillMatchingOutput:
     """
     Perform semantic skill matching between JD analytics and Candidate profile.
-
-    Args:
-        jd_analytics: Dict from Role 1 output
-        candidate_profile: Dict from Role 2 or Role 3 output
-
-    Returns:
-        Validated SkillMatchingOutput object.
     """
     try:
         client = _get_client()
     except RuntimeError:
-        # Fallback if GROQ_API_KEY is not set
         res_dict = fallback_match(jd_analytics, candidate_profile)
         return SkillMatchingOutput(**res_dict)
 
@@ -191,8 +184,11 @@ def match_skills(
     matched_skills: list[MatchedSkill] = []
     valid_codes = {c.value for c in CategoryCode}
 
+    code_map = {"DB": "SQL", "DATA": "AI", "MGMT": "OTHER"}
+
     for item in data.get("matched_skills", []):
         cat_code = str(item.get("category_code", "APTI")).upper()
+        cat_code = code_map.get(cat_code, cat_code)
         if cat_code not in valid_codes:
             cat_code = "APTI"
 
@@ -216,6 +212,7 @@ def match_skills(
     missing_skills: list[MissingSkill] = []
     for item in data.get("missing_skills", []):
         cat_code = str(item.get("category_code", "APTI")).upper()
+        cat_code = code_map.get(cat_code, cat_code)
         if cat_code not in valid_codes:
             cat_code = "APTI"
 
@@ -264,3 +261,8 @@ def match_skills(
         matched_skills=matched_skills,
         missing_skills=missing_skills,
     )
+
+
+# Alias for contract function exposure
+match_candidate_to_jd = match_skills
+
